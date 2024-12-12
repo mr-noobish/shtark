@@ -75,7 +75,7 @@ fn eval_var_declaration(declaration: VarDeclaration, env: &mut Environment) -> R
     match declaration.value {
         Some(_) => {
             return env.declare_var(declaration.identifier, declaration.value.expect("huh").expr_to_runtime_val(&mut env.clone()), false)
-        },//whyyyyyyyyyyyyy is it not added to the hashmap
+        },
         None => return env.declare_var(declaration.identifier, RuntimeVal::NullVal(NullVal {
             value_type: ValueType::Null,
             value: Value::Null,

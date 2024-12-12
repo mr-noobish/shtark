@@ -39,7 +39,7 @@ impl RuntimeVal {
             panic!("Not a NullVall")
         }
     }
-    pub fn get_bool_val(&self) -> Bool {
+    pub fn get_bool_val(&self) -> bool {
         if let RuntimeVal::BooleanVal(bool_val) = self {
             return bool_val.value.clone()
         } else {
@@ -67,12 +67,6 @@ impl RuntimeVal {
 }
 
 #[derive(Debug, PartialEq, Clone)]
-pub enum Bool {
-    True,
-    False,
-}
-
-#[derive(Debug, PartialEq, Clone)]
 pub struct NullVal {
     pub value_type: ValueType,
     pub value: Value,
@@ -93,13 +87,13 @@ impl NullVal {
 #[derive(Debug, PartialEq, Clone)]
 pub struct BooleanVal {
     pub value_type: ValueType,
-    pub value: Bool,
+    pub value: bool,
 }
 impl BooleanVal {
     pub fn to_runtime_val(self) -> RuntimeVal {
         return RuntimeVal::BooleanVal(self)
     }
-    pub fn make_bool(value: Bool) -> BooleanVal {
+    pub fn make_bool(value: bool) -> BooleanVal {
         return BooleanVal {
             value_type: ValueType::Boolean,
             value

@@ -93,13 +93,13 @@ pub fn tokenize(source_code: String) -> Vec<Token> {
                     break;
                 }
             }
-            if let Some(token_type) = keywords.get(&ident) { // remember typeof reserved == "number"
+            if let Some(token_type) = keywords.get(&ident) {
                 tokens.push(token(ident, token_type.clone()));
             } else {
                 tokens.push(token(ident, TokenType::Identifier));
             }
         } else if is_skippable(current) {
-            src.next(); // Skip whitespace
+            src.next();
         } else {
             println!("Unrecognized character found: {}", current);
             std::process::exit(1);

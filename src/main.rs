@@ -1,6 +1,6 @@
 use std::io::{self, Write};
 use environment::Environment;
-use values::{Bool, ValueType, RuntimeVal, BooleanVal};
+use values::{ValueType, RuntimeVal, BooleanVal};
 use ast::Stmt;
 use interpreter::evaluate;
 pub mod lexer;
@@ -13,11 +13,11 @@ fn main() {
     let mut env = Environment::new(None);
     env.declare_var(String::from("true"), RuntimeVal::BooleanVal(BooleanVal {
         value_type: ValueType::Boolean,
-        value: Bool::True,
+        value: true,
     }), true);
     env.declare_var(String::from("false"), RuntimeVal::BooleanVal(BooleanVal {
         value_type: ValueType::Boolean,
-        value: Bool::False,
+        value: false,
     }), true);
     loop {
         print!(">>>");
@@ -29,7 +29,7 @@ fn main() {
             break;
         }
         if input.is_empty() {
-            continue; // Ignore empty input
+            continue;
         }
         let mut program = parser::Parser::new(input);
         println!("{:#?}", evaluate(Stmt::Program(program.produce_ast()), &mut env));

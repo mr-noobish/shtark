@@ -38,7 +38,7 @@ impl Parser {
 
     pub fn produce_ast(&mut self) -> Program {
         let mut program = Program {
-            kind: NodeType::Program,  // Correctly setting the NodeType
+            kind: NodeType::Program,
             body: Vec::new(),
         };
 
@@ -69,7 +69,7 @@ impl Parser {
             String::from("Expected identifier name following let/const keywords.")
         ).tvalue;
         if self.at().ttype == TokenType::Semicolon {
-            self.eat();//expect semicolon
+            self.eat();
             if is_constant {
                 panic!("Must assign value to constant expression. No value provided")
             }

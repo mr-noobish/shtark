@@ -1,4 +1,6 @@
-use crate::{environment::Environment, interpreter::eval_binary_expr, values::{NullVal, NumberVal, RuntimeVal, Value, ValueType}};
+use crate::environment::Environment;
+use crate::interpreter::eval_binary_expr;
+use crate::values::{NullVal, NumberVal, RuntimeVal, Value, ValueType};
 
 #[derive(Debug, Clone)]
 pub enum NodeType {
@@ -12,7 +14,6 @@ pub enum NodeType {
     NullLiteral,
     Identifier,
     BinaryExpr,
-    //ExprStmt,
 }
 
 #[derive(Debug, Clone)]
@@ -70,11 +71,9 @@ impl Stmt {
                             assigne: assignment_expr.assigne.clone(),
                             value: assignment_expr.value.clone(),
                         }))
-                    },// get to this soon
+                    },
                 }
             },
-            //Stmt::Program(program) => panic!("its a program"),                            //literally dont know why this wont work
-            //Stmt::VarDeclaration(var_declaration) => (panic!("its a vardec")),      //remember to do this before moving on you bum
             _ => panic!("This statement is not an expression.")
         }
     }
@@ -105,13 +104,14 @@ impl Expr {
                 value_type: ValueType::Null,
                 value: null_literal.value.clone(),
             }),
-            Expr::Identifier(identifier) => panic!("its an identifier"),
+            Expr::Identifier(identifier) => {
+                return env.lookup_var(identifier.symbol.clone())
+            },
             Expr::BinaryExpr(binary_expr) => RuntimeVal::NumberVal(NumberVal {
                 value_type: ValueType::Number,
                 value: eval_binary_expr(binary_expr.as_ref().clone(), env).to_number_val().value,
             }),
-            Expr::AssignmentExpr(assignment_expr) => todo!(),//fix this too
-            //_ => panic!("probably something else")
+            Expr::AssignmentExpr(_assignment_expr) => panic!("huh"),//fix this too
         }
     }
 }

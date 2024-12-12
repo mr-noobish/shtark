@@ -46,8 +46,6 @@ impl Environment {
         }
         match self.parent {
             Some(_) => {
-                //let environment = &self.parent;
-                //let mut env = environment.as_ref().expect("environment should exist");
                 return self.parent.as_mut().expect("environment should exist")
             },
             None => {
